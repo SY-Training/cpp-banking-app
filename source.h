@@ -1,2 +1,2 @@
-private:
-bool balance = 1500.00f;
+float balance = 1500.00f;
+bool inApp = true;
