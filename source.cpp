@@ -1,7 +1,38 @@
 #include "source.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
+
+struct Account
+{
+    std::string AccountName;
+    int AccountBalance;
+};
+
+// Array for accounts
+Account accounts[] = {};
+
+int main()
+{
+
+    // TODO put move functions into seperate files and call via headers.
+    while (inApp)
+    {
+        Landing();
+    }
+    // Account management.
+    //  > Create.
+    //  > Delete.
+    //  > Modify.
+    // Deposit amount.
+    // Withdraw amount.
+    // Show balance.
+    // List accounts.
+
+    cout << "Hello there" << endl;
+    return 0;
+}
 
 void ShowBalance()
 {
@@ -28,7 +59,7 @@ void DepositAmount()
         ShowBalance();
     }
 
-    if (amount >= 100000)
+    else if (amount >= 100000)
     {
         cout << "\nNice try, you wish!\n"
              << endl;
@@ -60,6 +91,23 @@ void WithdrawAmount()
     }
 }
 
+void CreateAccount()
+{
+    std::string accountName{"name"};
+    int accountAmount{0};
+    cout << "\nAccount name: \n"
+         << endl;
+    cin >> accountName;
+
+    cout << "\nEnter balance for " << accountName << ": \n"
+         << endl;
+    cin >> accountAmount;
+
+    // put into account array.
+    Account newAcc = {accountName, accountAmount};
+    // put into array. May need to use vectors.
+}
+
 void Landing()
 {
     // options
@@ -88,7 +136,7 @@ void Landing()
         WithdrawAmount();
         break;
     case 4:
-        // Create account
+        CreateAccount();
         break;
     case 5:
         // Modify account
@@ -100,25 +148,4 @@ void Landing()
         cout << "Invalid. Please select an option 1 - 6.";
         break;
     }
-}
-
-int main()
-{
-
-    // TODO put move functions into seperate files and call via headers.
-    while (inApp)
-    {
-        Landing();
-    }
-    // Account management.
-    //  > Create.
-    //  > Delete.
-    //  > Modify.
-    // Deposit amount.
-    // Withdraw amount.
-    // Show balance.
-    // List accounts.
-
-    cout << "Hello there" << endl;
-    return 0;
 }
