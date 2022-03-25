@@ -1,6 +1,7 @@
 #include "source.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -10,8 +11,7 @@ struct Account
     int AccountBalance;
 };
 
-// Array for accounts
-Account accounts[] = {};
+vector<Account> accVec;
 
 int main()
 {
@@ -22,13 +22,13 @@ int main()
         Landing();
     }
     // Account management.
-    //  > Create.
-    //  > Delete.
-    //  > Modify.
-    // Deposit amount.
-    // Withdraw amount.
-    // Show balance.
-    // List accounts.
+    //  > Create. n
+    //  > Delete. n
+    //  > Modify. n
+    // Deposit amount. y
+    // Withdraw amount. y
+    // Show balance. y
+    // List accounts. n
 
     cout << "Hello there" << endl;
     return 0;
