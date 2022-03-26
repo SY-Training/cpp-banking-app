@@ -22,13 +22,13 @@ int main()
         Landing();
     }
     // Account management.
-    //  > Create. n
-    //  > Delete. n
+    //  > Create. y
+    //  > Delete. y
     //  > Modify. n
     // Deposit amount. y
     // Withdraw amount. y
     // Show balance. y
-    // List accounts. n
+    // List accounts. y
 
     cout << "Hello there" << endl;
     return 0;
@@ -105,8 +105,9 @@ void CreateAccount()
 
     if (!cin) // If cin fails (IE cin is not a float)
     {
-        cin.clear();
-        cout << "\nError: balance MUST be a number" << endl;
+        cin.clear();  // reset failbit.
+        cin.ignore(); // ignore the input - prevents infinite error loop.
+        cout << "\nERROR: balance MUST be a number" << endl;
     }
 
     if (accountName != "name" && accountAmount != 0)
@@ -117,8 +118,43 @@ void CreateAccount()
 
     else
     {
-        cout << "Error. Either name or balance is undefined. Try again." << endl;
+        cout << "ERROR. Either name or balance is undefined. Try again." << endl;
     }
+}
+
+void ModifyAccount()
+{
+    // modify
+}
+
+void DeleteAccount()
+{
+    // delete
+    // type the name of the account you want to delete
+    int accList{1};
+    int selection;
+    int selectVec;
+
+    for (int i = 0; i < accVec.size(); ++i)
+    {
+        cout << accList << ". " << accVec[i].AccountName << "\n"
+             << endl;
+        ++accList;
+    }
+
+    cout << "Select the number of the account you wish to delete.\n"
+         << endl;
+    cin >> selection;
+    if (!cin) // If cin fails (IE cin is not a float)
+    {
+        cin.clear();  // reset failbit.
+        cin.ignore(); // ignore the input - prevents infinite error loop.
+        cout << "\nERROR: inout MUST be a number" << endl;
+    }
+
+    selectVec = selection - 1;
+
+    accVec.erase(accVec.begin() + selectVec);
 }
 
 void ListAccounts()
@@ -143,7 +179,7 @@ void Landing()
             "3. Withdraw amount.\n"
             "4. Create an account.\n"
             "5. Modify an account.\n"
-            "6. List an accounts.\n"
+            "6. List accounts.\n"
             "7. Delete an account.\n"
          << endl;
 
@@ -153,7 +189,7 @@ void Landing()
     {
         cin.clear();
         cin.ignore();
-        cout << "\nPlease select a number.\n"
+        cout << "\nERROR: Please select a number.\n"
              << endl;
     }
 
@@ -174,13 +210,13 @@ void Landing()
             CreateAccount();
             break;
         case 5:
-            // Modify account
+            ModifyAccount();
             break;
         case 6:
             ListAccounts();
             break;
         case 7:
-            // Delete Accounts
+            DeleteAccount();
             break;
         default:
             cout << "Invalid. Please select an option 1 - 6.";
