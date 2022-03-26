@@ -23,7 +23,7 @@ int main()
     }
     // Account management.
     //  > Create. y
-    //  > Delete. y
+    //  > Delete. y At select account to delete, can type any number and it will work.
     //  > Modify. n
     // Deposit amount. y
     // Withdraw amount. y
@@ -124,37 +124,131 @@ void CreateAccount()
 
 void ModifyAccount()
 {
-    // modify
-}
-
-void DeleteAccount()
-{
-    // delete
-    // type the name of the account you want to delete
     int accList{1};
     int selection;
     int selectVec;
 
-    for (int i = 0; i < accVec.size(); ++i)
+    if (accVec.empty())
     {
-        cout << accList << ". " << accVec[i].AccountName << "\n"
+        cout << "\nThere are no accounts to modify.\n"
              << endl;
-        ++accList;
     }
 
-    cout << "Select the number of the account you wish to delete.\n"
-         << endl;
-    cin >> selection;
-    if (!cin) // If cin fails (IE cin is not a float)
+    else
     {
-        cin.clear();  // reset failbit.
-        cin.ignore(); // ignore the input - prevents infinite error loop.
-        cout << "\nERROR: inout MUST be a number" << endl;
+        for (int i = 0; i < accVec.size(); ++i)
+        {
+            cout << accList << ". " << accVec[i].AccountName << "\n"
+                 << endl;
+            ++accList;
+        }
+
+        cout << "Select the number of the account you wish to modify.\n"
+             << endl;
+        cin >> selection;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore();
+            cout << "\nERROR: inout MUST be a number" << endl;
+        }
+
+        selectVec = selection - 1;
+
+        // can edit name or amount.
+        int nameORbalance{0};
+
+        cout << "Do you wish to edit the:\n"
+                "1. Account name.\n"
+                "2. Account balance.\n"
+                "Choose a number: "
+             << endl;
+
+        cin >> nameORbalance;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore();
+            cout << "\nERROR: inout MUST be a number" << endl;
+        }
+
+        if (nameORbalance == 1)
+        {
+            // edit name
+        }
+
+        else if (nameORbalance == 2)
+        {
+            // edit balance
+        }
+
+        else
+        {
+            cout << "you  must chose 1 or 2.\n"
+                 << endl;
+        }
+    }
+}
+
+void DeleteAccount()
+{
+    int accList{1};
+    int selection;
+    int selectVec;
+
+    if (accVec.empty())
+    {
+        cout << "\nThere are no accounts to delete." << endl;
     }
 
-    selectVec = selection - 1;
+    else
+    {
+        for (int i = 0; i < accVec.size(); ++i)
+        {
+            cout << accList << ". " << accVec[i].AccountName << "\n"
+                 << endl;
+            ++accList;
+        }
 
-    accVec.erase(accVec.begin() + selectVec);
+        cout << "\nSelect the number of the account you wish to delete.\n"
+             << endl;
+        cin >> selection;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore();
+            cout << "\nERROR: inout MUST be a number" << endl;
+        }
+
+        selectVec = selection - 1;
+
+        cout << "Are you sure you wish to delete " << accVec[selectVec].AccountName << "? y/n\n"
+             << endl;
+
+        char yORn;
+        cin >> yORn;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore();
+            cout << "\nERROR: inout MUST be a number" << endl;
+        }
+
+        if (yORn == 'y')
+        {
+            accVec.erase(accVec.begin() + selectVec);
+        }
+
+        else if (yORn)
+        {
+        }
+
+        else
+        {
+            cout << "you must type y or n.\n"
+                 << endl;
+        }
+    }
 }
 
 void ListAccounts()
