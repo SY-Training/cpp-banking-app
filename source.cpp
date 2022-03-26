@@ -7,8 +7,8 @@ using namespace std;
 
 struct Account
 {
-    std::string AccountName;
-    int AccountBalance;
+    string AccountName;
+    float AccountBalance;
 };
 
 vector<Account> accVec;
@@ -94,7 +94,7 @@ void WithdrawAmount()
 void CreateAccount()
 {
     std::string accountName{"name"};
-    int accountAmount{0};
+    float accountAmount{0.f};
     cout << "\nAccount name: \n"
          << endl;
     cin >> accountName;
@@ -103,9 +103,33 @@ void CreateAccount()
          << endl;
     cin >> accountAmount;
 
-    // put into account array.
-    Account newAcc = {accountName, accountAmount};
-    // put into array. May need to use vectors.
+    if (!cin) // If cin fails (IE cin is not a float)
+    {
+        cin.clear();
+        cout << "\nError: balance MUST be a number" << endl;
+    }
+
+    if (accountName != "name" && accountAmount != 0)
+    {
+        Account newAcc = {accountName, accountAmount};
+        accVec.push_back(newAcc);
+    }
+
+    else
+    {
+        cout << "Error. Either name or balance is undefined. Try again." << endl;
+    }
+}
+
+void ListAccounts()
+{
+    for (int i = 0; i < accVec.size(); i++)
+    {
+        cout << "\n"
+             << accVec[i].AccountName << "\n"
+             << accVec[i].AccountBalance << "\n\n"
+             << endl;
+    }
 }
 
 void Landing()
@@ -119,33 +143,48 @@ void Landing()
             "3. Withdraw amount.\n"
             "4. Create an account.\n"
             "5. Modify an account.\n"
-            "6. Delete an account.\n"
+            "6. List an accounts.\n"
+            "7. Delete an account.\n"
          << endl;
 
     cin >> choice;
 
-    switch (choice)
+    if (!cin)
     {
-    case 1:
-        ShowBalance();
-        break;
-    case 2:
-        DepositAmount();
-        break;
-    case 3:
-        WithdrawAmount();
-        break;
-    case 4:
-        CreateAccount();
-        break;
-    case 5:
-        // Modify account
-        break;
-    case 6:
-        // Delete account
-        break;
-    default:
-        cout << "Invalid. Please select an option 1 - 6.";
-        break;
+        cin.clear();
+        cin.ignore();
+        cout << "\nPlease select a number.\n"
+             << endl;
+    }
+
+    else
+    {
+        switch (choice)
+        {
+        case 1:
+            ShowBalance();
+            break;
+        case 2:
+            DepositAmount();
+            break;
+        case 3:
+            WithdrawAmount();
+            break;
+        case 4:
+            CreateAccount();
+            break;
+        case 5:
+            // Modify account
+            break;
+        case 6:
+            ListAccounts();
+            break;
+        case 7:
+            // Delete Accounts
+            break;
+        default:
+            cout << "Invalid. Please select an option 1 - 6.";
+            break;
+        }
     }
 }
