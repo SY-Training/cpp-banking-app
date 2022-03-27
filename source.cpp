@@ -25,7 +25,7 @@ int main()
     //  > Create. y
     //  > Delete. y At select account to delete, can type any number and it will work.
     //  > Modify. n
-    // Deposit amount. y
+    // Deposit amount. y round up floats to 2 decimal places.
     // Withdraw amount. y
     // Show balance. y
     // List accounts. y
@@ -169,17 +169,30 @@ void ModifyAccount()
         {
             cin.clear();
             cin.ignore();
-            cout << "\nERROR: inout MUST be a number" << endl;
+            cout << "\nERROR: input MUST be a number" << endl;
         }
 
         if (nameORbalance == 1)
         {
-            // edit name
+            cout << "Enter a new balance: " << endl;
+            float newBalance{0};
+            cin >> newBalance;
+            if (!cin)
+            {
+                cin.clear();
+                cin.ignore();
+                cout << "\nERROR: input MUST be a number" << endl;
+            }
+
+            accVec[selectVec].AccountBalance = newBalance;
         }
 
         else if (nameORbalance == 2)
         {
-            // edit balance
+            cout << "Enter a new name: " << endl;
+            string newName{"name"};
+            cin >> newName;
+            accVec[selectVec].AccountName = newName;
         }
 
         else
@@ -264,7 +277,6 @@ void ListAccounts()
 
 void Landing()
 {
-    // options
     int choice{0};
 
     cout << "\nChoose and option:\n\n"
