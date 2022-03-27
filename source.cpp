@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -23,8 +24,8 @@ int main()
     }
     // Account management.
     //  > Create. y
-    //  > Delete. y At select account to delete, can type any number and it will work.
-    //  > Modify. n
+    //  > Delete. y
+    //  > Modify. y
     // Deposit amount. y round up floats to 2 decimal places.
     // Withdraw amount. y
     // Show balance. y
@@ -36,7 +37,7 @@ int main()
 
 void ShowBalance()
 {
-    cout << "\nYour balance is\n\n   £" << balance << endl;
+    cout << "\nYour balance is\n\n   £" << fixed << setprecision(2) << balance << endl;
 }
 
 void InvalidAmount()
@@ -93,7 +94,7 @@ void WithdrawAmount()
 
 void CreateAccount()
 {
-    std::string accountName{"name"};
+    string accountName{"name"};
     float accountAmount{0.f};
     cout << "\nAccount name: \n"
          << endl;
@@ -155,28 +156,19 @@ void ModifyAccount()
 
         selectVec = selection - 1;
 
-        // can edit name or amount.
-        int nameORbalance{0};
-
-        cout << "Do you wish to edit the:\n"
-                "1. Account name.\n"
-                "2. Account balance.\n"
-                "Choose a number: "
-             << endl;
-
-        cin >> nameORbalance;
-        if (!cin)
+        if (selectVec >= 0 && selectVec <= accVec.size())
         {
-            cin.clear();
-            cin.ignore();
-            cout << "\nERROR: input MUST be a number" << endl;
-        }
 
-        if (nameORbalance == 1)
-        {
-            cout << "Enter a new balance: " << endl;
-            float newBalance{0};
-            cin >> newBalance;
+            // can edit name or amount.
+            int nameORbalance{0};
+
+            cout << "Do you wish to edit the:\n"
+                    "1. Account name.\n"
+                    "2. Account balance.\n"
+                    "Choose a number: "
+                 << endl;
+
+            cin >> nameORbalance;
             if (!cin)
             {
                 cin.clear();
@@ -184,20 +176,38 @@ void ModifyAccount()
                 cout << "\nERROR: input MUST be a number" << endl;
             }
 
-            accVec[selectVec].AccountBalance = newBalance;
-        }
+            if (nameORbalance == 1)
+            {
+                cout << "Enter a new balance: " << endl;
+                float newBalance{0};
+                cin >> newBalance;
+                if (!cin)
+                {
+                    cin.clear();
+                    cin.ignore();
+                    cout << "\nERROR: input MUST be a number" << endl;
+                }
 
-        else if (nameORbalance == 2)
-        {
-            cout << "Enter a new name: " << endl;
-            string newName{"name"};
-            cin >> newName;
-            accVec[selectVec].AccountName = newName;
-        }
+                accVec[selectVec].AccountBalance = newBalance;
+            }
 
+            else if (nameORbalance == 2)
+            {
+                cout << "Enter a new name: " << endl;
+                string newName{"name"};
+                cin >> newName;
+                accVec[selectVec].AccountName = newName;
+            }
+
+            else
+            {
+                cout << "you  must chose 1 or 2.\n"
+                     << endl;
+            }
+        }
         else
         {
-            cout << "you  must chose 1 or 2.\n"
+            cout << "That is not an available option.\n"
                  << endl;
         }
     }
@@ -235,30 +245,38 @@ void DeleteAccount()
 
         selectVec = selection - 1;
 
-        cout << "Are you sure you wish to delete " << accVec[selectVec].AccountName << "? y/n\n"
-             << endl;
-
-        char yORn;
-        cin >> yORn;
-        if (!cin)
+        if (selectVec >= 0 && selectVec <= accVec.size())
         {
-            cin.clear();
-            cin.ignore();
-            cout << "\nERROR: inout MUST be a number" << endl;
-        }
+            cout << "Are you sure you wish to delete " << accVec[selectVec].AccountName << "? y/n\n"
+                 << endl;
 
-        if (yORn == 'y')
-        {
-            accVec.erase(accVec.begin() + selectVec);
-        }
+            char yORn;
+            cin >> yORn;
+            if (!cin)
+            {
+                cin.clear();
+                cin.ignore();
+                cout << "\nERROR: inout MUST be a number" << endl;
+            }
 
-        else if (yORn)
-        {
-        }
+            if (yORn == 'y')
+            {
+                accVec.erase(accVec.begin() + selectVec);
+            }
 
+            else if (yORn)
+            {
+            }
+
+            else
+            {
+                cout << "you must type y or n.\n"
+                     << endl;
+            }
+        }
         else
         {
-            cout << "you must type y or n.\n"
+            cout << "\nThat is not an available account.\n"
                  << endl;
         }
     }
