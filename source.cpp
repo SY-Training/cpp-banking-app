@@ -16,22 +16,12 @@ vector<Account> accVec;
 
 int main()
 {
-
     // TODO put move functions into seperate files and call via headers.
     while (inApp)
     {
         Landing();
     }
-    // Account management.
-    //  > Create. y
-    //  > Delete. y
-    //  > Modify. y
-    // Deposit amount. y round up floats to 2 decimal places.
-    // Withdraw amount. y
-    // Show balance. y
-    // List accounts. y
-
-    cout << "Hello there" << endl;
+    cout << "Goodbye." << endl;
     return 0;
 }
 
@@ -158,14 +148,13 @@ void ModifyAccount()
 
         if (selectVec >= 0 && selectVec <= accVec.size())
         {
-
             // can edit name or amount.
             int nameORbalance{0};
 
-            cout << "Do you wish to edit the:\n"
+            cout << "\nDo you wish to edit the:\n"
                     "1. Account name.\n"
                     "2. Account balance.\n"
-                    "Choose a number: "
+                    "\nChoose a number: "
                  << endl;
 
             cin >> nameORbalance;
@@ -178,6 +167,14 @@ void ModifyAccount()
 
             if (nameORbalance == 1)
             {
+                cout << "\nEnter a new name: " << endl;
+                string newName{"name"};
+                cin >> newName;
+                accVec[selectVec].AccountName = newName;
+            }
+
+            else if (nameORbalance == 2)
+            {
                 cout << "Enter a new balance: " << endl;
                 float newBalance{0};
                 cin >> newBalance;
@@ -187,27 +184,18 @@ void ModifyAccount()
                     cin.ignore();
                     cout << "\nERROR: input MUST be a number" << endl;
                 }
-
                 accVec[selectVec].AccountBalance = newBalance;
-            }
-
-            else if (nameORbalance == 2)
-            {
-                cout << "Enter a new name: " << endl;
-                string newName{"name"};
-                cin >> newName;
-                accVec[selectVec].AccountName = newName;
             }
 
             else
             {
-                cout << "you  must chose 1 or 2.\n"
+                cout << "\nyou  must chose 1 or 2.\n"
                      << endl;
             }
         }
         else
         {
-            cout << "That is not an available option.\n"
+            cout << "\nThat is not an available option.\n"
                  << endl;
         }
     }
@@ -305,6 +293,7 @@ void Landing()
             "5. Modify an account.\n"
             "6. List accounts.\n"
             "7. Delete an account.\n"
+            "8. Exit program.\n"
          << endl;
 
     cin >> choice;
@@ -341,6 +330,9 @@ void Landing()
             break;
         case 7:
             DeleteAccount();
+            break;
+        case 8:
+            inApp = false;
             break;
         default:
             cout << "Invalid. Please select an option 1 - 6.";
