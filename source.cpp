@@ -16,12 +16,11 @@ vector<Account> accVec;
 
 int main()
 {
-    // TODO put move functions into seperate files and call via headers.
     while (inApp)
     {
         Landing();
     }
-    cout << "Goodbye." << endl;
+    cout << "\nGoodbye." << endl;
     return 0;
 }
 
@@ -272,7 +271,7 @@ void DeleteAccount()
 
 void ListAccounts()
 {
-    for (int i = 0; i < accVec.size(); i++)
+    for (int i = 0; i < accVec.size(); ++i)
     {
         cout << "\n"
              << accVec[i].AccountName << "\n"
